@@ -23,7 +23,10 @@ describe('GET / return body', function(){
         fetch(base_url, options).then(function(response){
             return response.json();
         }).then(function(json) {
-            expect(json).toBe('200');
+            expect(json).toBe({
+                statusCode : 200,
+                text: {info: 'OK'}
+            });
             done();
         });
     }); 
@@ -40,7 +43,10 @@ describe('GET task/_serve_selftest  return body', function(){
         fetch(task_url, options).then(function(response){
             return response.json();
         }).then(function(json) {
-            expect(json).toBe(200);
+            expect(json).toBe({
+                statusCode : 200,
+                text: {info: 'OK'}
+            });
             done();
         });
     });
@@ -57,7 +63,10 @@ describe('GET task/fail_serve_selftest  return body', function(){
         fetch(task_url_fail, options).then(function(response){
             return response.json();
         }).then(function(json) {
-            expect(json).toBe(200);
+            expect(json).toBe({
+                statusCode : 200,
+                text: {info: 'OK'}
+            });
             done();
         });
     });
