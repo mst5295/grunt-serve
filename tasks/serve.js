@@ -39,6 +39,13 @@ module.exports = function(grunt) {
 	grunt.registerTask('_serve_selftest', 'Test grunt serve', function(){ 
 		grunt.log.write('task testing successful'); 
 	}); 
+
+	//Aufrufen mit /task/serve_selfupdate:<url>
+	grunt.registerTask('_serve_selfupdate', 'Updates the Repo and start serve again', function(url) {
+		
+		grunt.log.write('ich will mal was tollen machen');
+		grunt.log.write('url: '+ url);
+	})
 	// register serve task
 	grunt.registerTask('serve', 'Starts a http server that can be called to run tasks.', function() {
 		// control when the task should end
@@ -115,10 +122,10 @@ module.exports = function(grunt) {
 			// terminate task
 		    done();
 		});
-		
+
     	// a few messages
-        grunt.log.write('Server is running on port '+options.port+'...\n');
-        grunt.log.write('Press CTRL+C at any time to terminate it.\n');
+		grunt.log.write('Server is running on port '+options.port+'...\n');
+		grunt.log.write('Press CTRL+C at any time to terminate it.\n');
 	});
 }
 
