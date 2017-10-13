@@ -225,7 +225,8 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 function render(response, code, template, data, info) {
 	var json = JSON.stringify({
 		statusCode : code,
-		text: info
+		text: info,
+		data_info: data
 	})
 	if (!response.headersSent) {
 		response.writeHead(code, {"Content-Type": "application/json"});
