@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 
 		app.get ('/task/:taskname', function(req, res) {
 			try {
-				var cert = fs.readFileSync('public.pem');
+				var cert = fs.readFileSync(options.keypath);
 				var token = req.headers.webtoken;
 				jwt.verify(token,cert,{algorithms: ['RS256']}, function(err, payload){
 					if(err){
