@@ -43,10 +43,10 @@ module.exports = function(grunt) {
 	//Aufrufen mit /task/serve_selfupdate:<url>
 	grunt.registerTask('_serve_selfupdate', 'Updates the Repo and start serve again', function() {
 		var options = this.options({
-			localrepo: '',
-			linkrepo: ''
+			localrepo: 'defaultRepo',
+			linkrepo: 'defaultLink'
 		})
-		if(options.localrepo == '' || options.linkrepo == 0){
+		if(options.localrepo == '' || options.linkrepo == ''){
 			grunt.log.write('ich habe keinen link');
 		} else{
 			grunt.log.write('ich will mal was tollen machen');
