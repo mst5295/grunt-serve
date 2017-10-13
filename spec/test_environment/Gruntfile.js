@@ -7,6 +7,12 @@ module.exports = function(grunt) {
                 port: 9000,
                 keypath: './assist/public.pem',
             }
+        },
+        _serve_selfupdate: {
+            options: {
+                localrepo: 'halloEcho',
+                link: 'halloWelt'
+            }
         }
     });
 };

@@ -41,10 +41,18 @@ module.exports = function(grunt) {
 	}); 
 
 	//Aufrufen mit /task/serve_selfupdate:<url>
-	grunt.registerTask('_serve_selfupdate', 'Updates the Repo and start serve again', function(url) {
-		
-		grunt.log.write('ich will mal was tollen machen');
-		grunt.log.write('url: '+ url);
+	grunt.registerTask('_serve_selfupdate', 'Updates the Repo and start serve again', function() {
+		var options = this.options({
+			localrepo: '',
+			linkrepo: ''
+		})
+		if(options.localrepo == '' || options.linkrepo == 0){
+			grunt.log.write('ich habe keinen link');
+		} else{
+			grunt.log.write('ich will mal was tollen machen');
+			grunt.log.write('link: '+ options.link);
+			grunt.log.write('local: '+ options.localrepo);
+		}
 	})
 	// register serve task
 	grunt.registerTask('serve', 'Starts a http server that can be called to run tasks.', function() {
