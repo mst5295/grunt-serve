@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         serve: {
             options: {
-                port: 8000,
+                port: 9000,
                 keypath : '.././spec/test_environment/assist/public.pem',
             }
         }
