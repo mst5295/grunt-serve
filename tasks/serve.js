@@ -54,8 +54,8 @@ module.exports = function(grunt) {
 		// get options
 		var options = this.options({
 			port: 9000,
+			keypath: './public.pem',
 			silently: false,
-			keypath : './public.pem',
 			serve: {
 				path: process.cwd()
 			}
