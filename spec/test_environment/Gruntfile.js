@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         serve: {
             options: {
                 port: 9000,
-                keypath: '.././spec/test_environment/assist/public.pem',
+                keypath: './assist/public.pem',
             }
         }
     });
