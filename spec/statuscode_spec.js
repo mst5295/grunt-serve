@@ -62,10 +62,6 @@ describe('Server', function(){
             const fetch = enableRecv(
                 require('node-fetch')
             );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url).then(function(response){
                 expect(response.status).toBe(401);
                 done();

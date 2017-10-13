@@ -55,6 +55,7 @@ module.exports = function(grunt) {
 		var options = this.options({
 			port: 9000,
 			silently: false,
+			keypath = './',
 			serve: {
 				path: process.cwd()
 			}
@@ -62,7 +63,7 @@ module.exports = function(grunt) {
 		
 		app.get ('/', function(req, res) {
 			try{
-				var cert = fs.readFileSync('public.pem');
+				var cert = fs.readFileSync(keypath+'public.pem');
 				var token = req.headers.webtoken;
 				jwt.verify(token,cert,{algorithms: ['RS256']}, function(err, payload){
 					if(err){
