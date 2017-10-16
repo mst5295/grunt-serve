@@ -10,8 +10,8 @@ module.exports = function(grunt) {
         },
         _serve_selfupdate: {
             options: {
-                localrepo: 'halloEcho',
-                link: 'halloWelt'
+                localrepo: './',
+                link: 'https://github.com/mst5295/grunt-serve'
             }
         }
     });

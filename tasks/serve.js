@@ -16,7 +16,8 @@ var	childProcess = require("child_process"),
 	jwt = require('jsonwebtoken'),
 	express = require('express'),
 	app = express(),
-	server;
+	server,
+	git = require('simple-git');
 // requires
 
 // load all template files
@@ -43,13 +44,21 @@ module.exports = function(grunt) {
 	//Aufrufen mit /task/serve_selfupdate:<url>
 	grunt.registerTask('_serve_selfupdate', 'Updates the Repo and start serve again', function() {
 		var options = this.options({
-			localrepo: 'defaultRepo',
+			localrepo: './',
 			linkrepo: 'defaultLink'
 		})
 		if(options.localrepo == '' || options.linkrepo == ''){
-			grunt.log.write('ich habe keinen link');
+			grunt.log.write('no links');
 		} else{
-			grunt.log.write('ich will mal was tollen machen');
+			grunt.log.write('ich will mal was tollen machen \n');
+			git(options.link).pull(function(err, update) {
+				grunt.log.write('ich habe gepullt (: \n')
+				if(update){
+					grunt.log.write('ich habe ein update gemacht (: \n');
+					//beende serve
+					process.exit(1);
+				}
+			});
 			grunt.log.write('link: '+ options.link);
 			grunt.log.write('local: '+ options.localrepo);
 		}
