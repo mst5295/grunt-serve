@@ -242,7 +242,6 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 function render(response, code, template, data, info) {
 	var json = JSON.stringify({
 		statusCode : code,
-		data_info : data, 
 		text: info
 	})
 	if (!response.headersSent) {
