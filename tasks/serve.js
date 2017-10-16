@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 			grunt.log.write('no link');
 		} else{
 			grunt.log.write('ich will mal was tollen machen \n');
-			process.exit(1);
+			//process.exit(1);
 			/*git(options.link).pull(function(err, update) {
 				grunt.log.write('ich habe gepullt (: \n')
 				if(update){
