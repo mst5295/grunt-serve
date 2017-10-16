@@ -16,8 +16,7 @@ var	childProcess = require("child_process"),
 	jwt = require('jsonwebtoken'),
 	express = require('express'),
 	app = express(),
-	server,
-	git = require('simple-git');
+	server;
 // requires
 
 // load all template files
@@ -50,7 +49,7 @@ module.exports = function(grunt) {
 		if(options.linkrepo == ''){
 			grunt.log.write('no link');
 		} else{
-			grunt.log.write('ich will mal was tollen machen \n');
+			/*grunt.log.write('ich will mal was tolles machen \n');
 			git().pull(function(err, update) {
 				grunt.log.write('ich habe gepullt (: \n')
 				if(update){
@@ -58,7 +57,7 @@ module.exports = function(grunt) {
 					//beende serve
 					//process.exit(1);
 				}
-			});
+			});*/
 			grunt.log.write('link: '+ options.link);
 			grunt.log.write('local: '+ options.localrepo);
 		}
