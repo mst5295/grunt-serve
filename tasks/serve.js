@@ -244,7 +244,7 @@ function render(response, code, template, data, info) {
 	var json = JSON.stringify({
 		statusCode : code,
 		text: info,
-		data_info: data
+		info_res: response
 	})
 	if (!response.headersSent) {
 		response.writeHead(code, {"Content-Type": "application/json"});
