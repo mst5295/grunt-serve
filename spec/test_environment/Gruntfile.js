@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         _serve_selfupdate: {
             options: {
                 localrepo: './',
-                link: 'link'
+                link: 'HalloWorld'
             }
         }
     });
