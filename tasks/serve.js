@@ -47,18 +47,19 @@ module.exports = function(grunt) {
 			localrepo: './',
 			linkrepo: 'defaultLink'
 		})
-		if(options.localrepo == '' || options.linkrepo == ''){
-			grunt.log.write('no links');
+		if(options.linkrepo == ''){
+			grunt.log.write('no link');
 		} else{
 			grunt.log.write('ich will mal was tollen machen \n');
-			git(options.link).pull(function(err, update) {
+			process.exit(1);
+			/*git(options.link).pull(function(err, update) {
 				grunt.log.write('ich habe gepullt (: \n')
 				if(update){
 					grunt.log.write('ich habe ein update gemacht (: \n');
 					//beende serve
 					process.exit(1);
 				}
-			});
+			});*/
 			grunt.log.write('link: '+ options.link);
 			grunt.log.write('local: '+ options.localrepo);
 		}
