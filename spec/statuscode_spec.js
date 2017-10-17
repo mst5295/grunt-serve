@@ -4,6 +4,7 @@ var server = require('../tasks/serve.js'),
     task_url_fail = "http://localhost:9000/task/fail_serve_selftest"
 
 const { createFetch, createStack, enableRecv, header, base, parse } = require('http-client');
+const fetch = enableRecv(require('node-fetch'));
 
 describe('Server', function(){
     var options_right= {
@@ -18,39 +19,18 @@ describe('Server', function(){
     }  
     describe('GET / return status code', function(){
         it("401 because it is an unauthorized request without Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(base_url),
-                parse('json')
-            );
             fetch(base_url).then(function(response){
                 expect(response.status).toBe(401);
                 done();
             });
         });
         it("401 because it is an unauthorized request with wrong Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(base_url),
-                parse('json')
-            );
             fetch(base_url, options_wrong).then(function(response){
                 expect(response.status).toBe(401);
                 done();
             });
         });
         it("200 because it is an authorized request and the url exists", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(base_url),
-                parse('json')
-            );
             fetch(base_url, options_right).then(function(response){
                 expect(response.status).toBe(200);
                 done();
@@ -59,35 +39,18 @@ describe('Server', function(){
     });
     describe('GET task/_serve_selftest  return status code', function(){
         it("401 because it is an unauthorized request without Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
             fetch(task_url).then(function(response){
                 expect(response.status).toBe(401);
                 done();
             });
         });
         it("401 because it is an unauthorized request with wrong Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url, options_wrong).then(function(response){
                 expect(response.status).toBe(401);
                 done();
             });
         });
         it("200 because it is an authorized request and the task exists", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url, options_right).then(function(response){
                 expect(response.status).toBe(200);
                 done();
@@ -96,39 +59,18 @@ describe('Server', function(){
     });
     describe('GET task/fail_serve_selftest  return status code', function(){
         it("401 because it is an unauthorized request without Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url_fail).then(function(response){
                 expect(response.status).toBe(401);
                 done();
             });
         });
         it("401 because it is an unauthorized request with wrong Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url_fail, options_wrong).then(function(response){
                 expect(response.status).toBe(401);
                 done();
             });
         });
         it("500 because the task do not exist", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url_fail, options_right).then(function(response){
                 expect(response.status).toBe(500);
                 done();

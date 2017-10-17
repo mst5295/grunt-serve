@@ -4,6 +4,7 @@ task_url = "http://localhost:9000/task/_serve_selftest";
 task_url_fail = "http://localhost:9000/task/fail_serve_selftest"
 
 const { createFetch, createStack, enableRecv, header, base, parse } = require('http-client');
+const fetch = enableRecv(require('node-fetch'));
 
 describe('Server', function(){
     var options_right= {
@@ -30,13 +31,6 @@ describe('Server', function(){
 	})
     describe('GET / return body', function(){
         it("statusCode: 401 and info 'unauthorized' because it is an unauthorized request without Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(base_url),
-                parse('json')
-            );
             fetch(base_url).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -45,13 +39,6 @@ describe('Server', function(){
             });
         });
         it("statusCode: 401 and info 'unauthorized' because it is an unauthorized request with wrong Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(base_url),
-                parse('json')
-            );
             fetch(base_url, options_wrong).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -60,13 +47,6 @@ describe('Server', function(){
             });
         });
         it("statusCode: 200 and info 'OK' because it is an authorized request and the url exists", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(base_url),
-                parse('json')
-            );
             fetch(base_url, options_right).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -77,13 +57,6 @@ describe('Server', function(){
     });
     describe('GET task/_serve_selftest  return body', function(){
         it("statusCode: 401 and info 'unauthorized' because it is an unauthorized request without Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -92,13 +65,6 @@ describe('Server', function(){
             });
         });
         it("statusCode: 401 and info 'unauthorized' because it is an unauthorized request with wrong Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url, options_wrong).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -107,13 +73,6 @@ describe('Server', function(){
             });
         });
         it("statusCode: 200 and info 'OK' because it is an authorized request and the task exists", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url, options_right).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -124,13 +83,6 @@ describe('Server', function(){
     });
     describe('GET task/fail_serve_selftest  return body', function(){
         it("statusCode: 401 and info 'unauthorized' because it is an unauthorized request without Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url_fail).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -139,13 +91,6 @@ describe('Server', function(){
             });
         });
         it("statusCode: 401 and info 'unauthorized' because it is an unauthorized request with wrong Webtoken", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url_fail, options_wrong).then(function(response){
                 return response.json();
             }).then(function(json) {
@@ -154,13 +99,6 @@ describe('Server', function(){
             });
         });
         it("statusCode: 500 and info 'Error' because the task do not exist", function(done){
-            const fetch = enableRecv(
-                require('node-fetch')
-            );
-            const stack = createStack(
-                base(task_url),
-                parse('json')
-            );
             fetch(task_url_fail, options_right).then(function(response){
                 return response.json();
             }).then(function(json) {
