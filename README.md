@@ -10,7 +10,7 @@ guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-grun
 you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-serve --save-dev
+npm install <url> --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -32,42 +32,7 @@ Here is a summary of how the server will behave:
  * Calls to / will display a page with some information (configures aliases, files that can be served, directory browsing, ...).
  * Calls to /task/{task1},{task2}/{output} will run the given tasks and return the file named output (see example later).
  * Calls to /{alias} ({alias} being an alias that you have configured) will run the tasks defined for that alias.
- * Calls did not match the rules above will try to return the content of a file for the given path (/index.html will return the file index.html located in the folder where grunt was launched).
  
-This project can also be found on `https://www.npmjs.org/package/grunt-serve`.
-
-#### Rebuild on browser refresh
-
-One possible usage of the plugin is triggering automatic build when you refresh a page in your browser.
-When developing a web project that uses a lot of JavaScript, you will find yourself losing lots of time switching
-to the command line, building the script, switching back to the browser, then pressing refresh to see the result.
-This plugin allows you to avoid switching to the command line. You simply need to replace the script in your html
-page by the local server that this task creates. Next time you refresh, the browser will call this local server
-that will run the grunt tasks you defined and will return the generated file.
-
-An easy way to setup this would be as follow:
-
-```html
-	<!doctype html>
-	<html>
-		<head>
-			<title>My Website</title>
-			{{ if development }}
-				<!-- regenerated files -->
-				<link href="http://localhost:9000/client.css" rel="stylesheet" type="text/css" />
-				<script src="http://localhost:9000/client.js"></script>
-			{{ else if (production) }}
-				<!-- static files -->
-				<link href="client.css" rel="stylesheet" type="text/css" />
-				<script src="client.js"></script>
-			{{ endif }}
-		</head>
-		<body>
-			<!-- page content -->
-		</body>
-	</html>
-```
-
 ### Options
 
 #### options.port
@@ -82,16 +47,13 @@ Default value: `null`
 
 Aliases allows you to configure what tasks should be run and what file should
 be returned for a specific path. In the following example, calling http://localhost:9000/client.js
-will trigger running the tasks 'html2js', 'concat' and 'minify'. When all the tasks have been executed
-the file client.min.js will be returned and the content type 'text/javascript' will be set in the 
-headers. If no contentType if given, it will try to auto detect by looking at the output. If no output
-if given, the grunt stdout will be returned.
+will trigger running the tasks 'html2js', 'concat' and 'minify'. When all the tasks have been executed grunt stdout will be returned the content type 'text/javascript' will be set in the 
+headers.
 
 ```javascript
 	'aliases': {
 		'client.js': {
 			tasks: ['html2js', 'concat', 'minify'], // required
-			output: 'client.min.js', // optional
 			contentType: 'text/javascript' // optional
 		},
 		...
@@ -124,8 +86,6 @@ always be related to the grunt working directory).
 #### Basic Use - Running tasks with zero configuration
 
 In this example, `grunt serve` will start a web server at `http://localhost:9000/`. Any call to /task will trigger a build as described below.
- * If you go to http://localhost:9000/task/html2js,concat/client.js it will execute the tasks 'html2js' and 'concat' and return the content of the file 'client.js'.
- * If you go to http://localhost:9000/task/cssmin/client.css it will execute the task 'cssmin' and return the content of the file 'client.css'.
  * If you go to http://localhost:9000/task/concat it will execute the task 'concat' and return the stdout and stderr that grunt outputed.
 
 ```javascript
@@ -142,7 +102,7 @@ grunt.initConfig({
 #### Using Aliases
 
 In this example, `grunt serve` will start a web server at `http://localhost:9000/`.
- * If you go to http://localhost:9000/client.js it will execute the tasks 'html2js' and 'concat' and return the content of the file 'client.js'.
+ * If you go to http://localhost:9000/client.js it will execute the tasks 'html2js' and 'concat' and return the stdout and stderr.
 
 ```javascript
 // Project configuration.
@@ -151,8 +111,7 @@ grunt.initConfig({
 		options: {
 			port: 9000,
 			'client.js': {
-				tasks: ['html2js', 'concat'],
-				output: 'client.js'
+				tasks: ['html2js', 'concat']
 			}
 		}
 	}
@@ -211,7 +170,9 @@ grunt.initConfig({
  * 2014-09-27   0.1.6    Bug fix and code refactoring.
 
 
-# generate Key
+## generate Key
+You need a JSON-Web-Token to access to the server. Create your token as follows
+
 ```bash
 set RANDFILE=<projectpath>\.rnd
 set OPENSSL_CONF=C:\OpenSSL-Win32\bin\openssl.cfg
@@ -220,7 +181,19 @@ c:\OpenSSL-Win32\bin\openssl.exe
 genrsa -out private.key 2048
 rsa -in private.key -outform PEM -pubout -out public.pem
 ```
-# generate Token
+
+### hand over the key-location
+To hand over the location of the public-key file, you should use the option keypath of serve in your Gruntfile.
+```javascript
+serve: {
+            options: {
+                port: 9000,
+                keypath: './assist/public.pem',
+            }
+        },
+```
+## generate Token
+
 ```javascript
 var jwt = require ('jsonwebtoken');
 var fs = require("fs");
@@ -228,3 +201,26 @@ var cert = fs.readFileSync('private.key');
 var token = jwt.sign({foo:'bar'}, cert,{algorithm: 'RS256', expiresIn: '10h'});
 console.log(token);
 ```
+To generate a token use following command on your bash. The current directory should contain the generateToken.js file.
+```bash
+node generateToken.js
+```
+## Tests
+To test the functionality of our edited serve, we create tests.
+This tests check if the serve return the right statuscodes for different events. This tests also check if the serve return the right body for these different events. The tests include three groups of tests. 
+* Check the base-URL `http://localhost:9000/`.
+* Check an existing task `http://localhost:9000/task/_serve_selftest`
+* Check a non existing task `http://localhost:9000/task/fail_serve_selftest`
+
+Every group includes the three following tests.
+* Request without webtoken
+* Request with wrong webtoken
+* Request with right webtoken
+
+## Task
+### _serve_selftest
+This task just log on the console `task testing successful`. It is just created for testing.
+
+### (in progress) _serve_selfupdate
+This task updates the repository with the node-git-pull-module and exit the serve-task.
+There is a loop in a dockerfile, which will `npm install` the changes and restart the serve-task.
