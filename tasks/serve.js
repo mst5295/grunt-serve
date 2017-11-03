@@ -193,6 +193,7 @@ function displayTasks(grunt){
 			if (typeof config === 'object'){
 				targets = Object.keys(config);
 				console.dir(targets);
+				console.dir(grunt.config.get(grunt.task._tasks[task].name));
 			}
 		}
 	}
