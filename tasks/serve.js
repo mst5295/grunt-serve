@@ -188,10 +188,13 @@ function displayTasks(grunt){
 	for (var task in tasks) {
 		console.dir(task);
 		if(task == 'serve'){
-		var config = grunt.config.getRaw(grunt.task._tasks[task].name);
-		var targets = [];
-		targets = Object.keys(config);
-		console.dir(targets);}
+			var config = grunt.config.getRaw(grunt.task._tasks[task].name);
+			var targets = [];
+			if (typeof config === 'object'){
+				targets = Object.keys(config);
+				console.dir(targets);
+			}
+		}
 	}
 
 	
