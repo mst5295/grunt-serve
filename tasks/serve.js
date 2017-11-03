@@ -187,8 +187,13 @@ function displayTasks(grunt){
 	console.dir(tasks);
 	for (var task in tasks) {
 		console.dir(task);
-		console.dir(grunt.task._tasks[task].options);
+		var config = grunt.config.getRaw(task);
+		var targets = [];
+		targets = Object.key(config);
+		console.dir(targets);
 	}
+
+	
 }
 
 /**
