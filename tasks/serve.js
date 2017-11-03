@@ -37,6 +37,7 @@ var loadTemplate = function(name) {
  */
 module.exports = function(grunt) {
 	grunt.registerTask('showTasks', 'show tasks', function(){
+		console.dir("Tasks: \n");
 		console.dir(grunt.tasks);
 	})
 	grunt.registerTask('_serve_selftest', 'Test grunt serve', function(){ 
