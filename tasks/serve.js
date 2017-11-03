@@ -187,6 +187,7 @@ function displayTasks(grunt){
 	console.dir(tasks);
 	for (var task in tasks) {
 		console.dir(tasks.task);
+		console.dir(task.options);
 	}
 }
 
