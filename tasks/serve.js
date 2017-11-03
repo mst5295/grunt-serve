@@ -189,7 +189,7 @@ function displayTasks(grunt){
 		console.dir(task);
 		var config = grunt.config.getRaw(task);
 		var targets = [];
-		targets = Object.key(config);
+		targets = Object.keys(config);
 		console.dir(targets);
 	}
 
