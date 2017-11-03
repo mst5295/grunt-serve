@@ -146,7 +146,7 @@ module.exports = function(grunt) {
 	});
 	grunt.registerTask('showTasks', 'show tasks', function(){
 		console.dir("Tasks: \n");
-		console.dir(grunt.config.get());
+		console.dir(grunt.task._tasks);
 	});
 }
 
