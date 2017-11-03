@@ -36,6 +36,9 @@ var loadTemplate = function(name) {
  * Definition of the exported method that will be called by Grunt on initialization.
  */
 module.exports = function(grunt) {
+	grunt.registerTask('showTasks', 'show tasks', function(){
+		console.dir(grunt.tasks);
+	})
 	grunt.registerTask('_serve_selftest', 'Test grunt serve', function(){ 
 		grunt.log.write('task testing successful'); 
 	}); 
@@ -178,6 +181,14 @@ function handleRequest(request, response, grunt, options) {
 	}
 }
 */
+
+function displayTasks(){
+	var aliases = grunt.task;
+
+}
+function displayParamTasks(task){
+	var params = options.task.options;
+}
 
 /**
  * Runs Grunt to execute the given tasks.
