@@ -36,10 +36,7 @@ var loadTemplate = function(name) {
  * Definition of the exported method that will be called by Grunt on initialization.
  */
 module.exports = function(grunt) {
-	grunt.registerTask('showTasks', 'show tasks', function(){
-		console.dir("Tasks: \n");
-		console.dir(grunt.config.get());
-	})
+	
 	grunt.registerTask('_serve_selftest', 'Test grunt serve', function(){ 
 		grunt.log.write('task testing successful'); 
 	}); 
@@ -143,7 +140,10 @@ module.exports = function(grunt) {
 			// terminate task
 		    done();
 		});
-
+		grunt.registerTask('showTasks', 'show tasks', function(){
+			console.dir("Tasks: \n");
+			console.dir(grunt.config.get());
+		})
     	// a few messages
 		grunt.log.write('Server is running on port '+options.port+'...\n');
 		grunt.log.write('Press CTRL+C at any time to terminate it.\n');
