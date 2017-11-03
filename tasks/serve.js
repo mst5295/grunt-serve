@@ -184,6 +184,7 @@ function handleRequest(request, response, grunt, options) {
 
 function displayTasks(grunt){
 	var tasks = grunt.task._tasks;
+	console.dir(tasks);
 	for (var task in tasks) {
 		console.dir(task.name);
 		console.dir(task.info);
