@@ -186,8 +186,8 @@ function displayTasks(grunt){
 	var tasks = grunt.task._tasks;
 	console.dir(tasks);
 	for (var task in tasks) {
-		console.dir(tasks.task);
-		console.dir(task.options);
+		console.dir(task);
+		console.dir(grunt.task.options);
 	}
 }
 
