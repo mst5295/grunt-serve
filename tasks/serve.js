@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 		grunt.log.write('Press CTRL+C at any time to terminate it.\n');
 	});
 	grunt.registerTask('showTasks', 'show tasks', function(){
-		displayTasks();
+		displayTasks(grunt);
 	});
 }
 
@@ -182,7 +182,7 @@ function handleRequest(request, response, grunt, options) {
 }
 */
 
-function displayTasks(){
+function displayTasks(grunt){
 	var tasks = grunt.task._tasks;
 	for (var task in tasks) {
 		console.dir(task.name);
