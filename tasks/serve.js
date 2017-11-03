@@ -187,7 +187,7 @@ function displayTasks(grunt){
 	console.dir(tasks);
 	for (var task in tasks) {
 		console.dir(task);
-		if(grunt.config.getRaw(grunt.task._tasks[task].name).code == 0){
+		if(grunt.config.getRaw(grunt.task._tasks[task].name)){
 			var config = grunt.config.getRaw(grunt.task._tasks[task].name);
 			var targets = [];
 			if (typeof config === 'object'){
