@@ -140,13 +140,13 @@ module.exports = function(grunt) {
 			// terminate task
 		    done();
 		});
-		grunt.registerTask('showTasks', 'show tasks', function(){
-			console.dir("Tasks: \n");
-			console.dir(grunt.config.get());
-		})
     	// a few messages
 		grunt.log.write('Server is running on port '+options.port+'...\n');
 		grunt.log.write('Press CTRL+C at any time to terminate it.\n');
+	});
+	grunt.registerTask('showTasks', 'show tasks', function(){
+		console.dir("Tasks: \n");
+		console.dir(grunt.config.get());
 	});
 }
 
