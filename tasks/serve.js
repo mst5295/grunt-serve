@@ -183,9 +183,11 @@ function handleRequest(request, response, grunt, options) {
 */
 
 function displayTasks(grunt){
+	console.dir("start");
 	var tasks = grunt.task._tasks;
 	console.dir(tasks);
 	for (var task in tasks) {
+
 		console.dir(task);
 		if(grunt.config.getRaw(grunt.task._tasks[task].name)){
 			var config = grunt.config.getRaw(grunt.task._tasks[task].name);
@@ -193,7 +195,7 @@ function displayTasks(grunt){
 			if (typeof config === 'object'){
 				targets = Object.keys(config);
 				console.dir(targets);
-				console.dir(grunt.config.get(grunt.task._tasks[task].name));
+				//console.dir(grunt.config.get(grunt.task._tasks[task].name));
 			}
 		}
 	}

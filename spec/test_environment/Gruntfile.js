@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-serve');
-    
+
     grunt.initConfig({
         serve: {
             options: {
@@ -29,4 +29,6 @@ module.exports = function(grunt) {
             }
         }
     });
+    grunt.registerTask('default', []);
+    grunt.registerTask('test', ['serve', '_serve_selfupdate']);
 };
