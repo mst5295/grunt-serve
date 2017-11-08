@@ -183,7 +183,6 @@ function handleRequest(request, response, grunt, options) {
 */
 
 function displayTasks(grunt){
-	console.dir("start");
 	var tasks = grunt.task._tasks;
 	console.dir(tasks);
 	for (var task in tasks) {
@@ -199,8 +198,7 @@ function displayTasks(grunt){
 			}
 		}
 	}
-
-	
+	return tasks;
 }
 
 /**
@@ -266,7 +264,8 @@ function render(response, code, template, data, info, port) {
 	var json = JSON.stringify({
 		statusCode : code,
 		text: info,
-		link: "http://localhost/" + port
+		link: "http://localhost/" + port,
+		tasklist: displayTasks(grunt)
 	})
 	if (!response.headersSent) {
 		response.writeHead(code, {"Content-Type": "application/json"});
