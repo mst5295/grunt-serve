@@ -88,20 +88,20 @@ module.exports = function(grunt) {
 							name: 'JsonWebTokenError',
 							message: 'invalid signature'
 						}
-						render(res, 401, unauthTmpl, null, {info: 'unauthorized'}, options.port);
+						render(res, 401, unauthTmpl, null, {info: 'unauthorized'}, options.port, grunt);
 					} else{
 						// forward request
 						render(res, 200, indexTmpl, {
 							host: req.headers.host,
 							aliases: mapToArray(options.aliases, 'name'),
 							files: filesInDirectory(grunt, options, '.'),
-						}, {info: 'OK'}, options.port);
+						}, {info: 'OK'}, options.port, grunt);
 					}
 				});
 			} catch (e) {
 				render(res, 500, errorTmpl, {
 					error: 'Unexpected JavaScript exception "'+e+'"<br />'+(e && e.stack ? e.stack.replace(/\n+/g, '<br />') : '')
-				}, {info: 'Error'}, options.port);
+				}, {info: 'Error'}, options.port, grunt);
 			}
 		});
 
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
 							name: 'JsonWebTokenError',
 							message: 'invalid signature'
 						}
-						render(res, 401, unauthTmpl, null, {info: 'unauthorized'}, options.port);
+						render(res, 401, unauthTmpl, null, {info: 'unauthorized'}, options.port, grunt);
 					} else{
 						var tasks = req.params.taskname.split(','),
 						output = null;
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 				// show error
 				render(res, 500, errorTmpl, {
 					error: 'Unexpected JavaScript exception "'+e+'"<br />'+(e && e.stack ? e.stack.replace(/\n+/g, '<br />') : '')
-				}, {info: 'Error'}, options.port);
+				}, {info: 'Error'}, options.port, grunt);
 			}
 		});
 
@@ -225,7 +225,7 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 			    	tasks: tasks,
 			    	stdout: formatStdout(stdout),
 			    	stderr: formatStdout(stderr)
-			    }, {info: 'Error'}, port);
+			    }, {info: 'Error'}, port, grunt);
 				return;
 			}
 			
@@ -234,7 +234,7 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 			    // write stdout
 		    	render(response, 200, successTmpl, {
 		    		output: formatStdout(stdout)
-		    	}, {info: 'OK'}, port);
+		    	}, {info: 'OK'}, port, grunt);
 			    
 		    } else {
 		    	// requested output file exists?
@@ -245,14 +245,14 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 					// show file not found
 				    render(response, 500, missingTmpl, {
 				    	output: output
-				    } , {info: 'Error'}, port);
+				    } , {info: 'Error'}, port, grunt);
 				}
 		    }
 		} catch(e) {
 			// show error
 		    render(response, 500, errorTmpl, {
 		    	error: 'Unexpected JavaScript exception "'+e+'"<br />'+(e && e.stack ? e.stack.replace(/\n+/g, '<br />') : '')
-		    }, {info: 'Error'}, options.port);
+		    }, {info: 'Error'}, port, grunt);
 		}
 	});
 }
@@ -260,7 +260,7 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 /**
  * Renders a json response.
  */
-function render(response, code, template, data, info, port) {
+function render(response, code, template, data, info, port, grunt) {
 	var json = JSON.stringify({
 		statusCode : code,
 		text: info,
