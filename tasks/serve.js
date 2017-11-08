@@ -187,8 +187,8 @@ function displayTasks(grunt){
 	console.dir(tasks);
 	for (var task in tasks) {
 
-		console.dir(task);
-		if(grunt.config.getRaw(grunt.task._tasks[task].name)){
+		//console.dir(task);
+		/*if(grunt.config.getRaw(grunt.task._tasks[task].name)){
 			var config = grunt.config.getRaw(grunt.task._tasks[task].name);
 			var targets = [];
 			if (typeof config === 'object'){
@@ -196,7 +196,7 @@ function displayTasks(grunt){
 				console.dir(targets);
 				//console.dir(grunt.config.get(grunt.task._tasks[task].name));
 			}
-		}
+		}*/
 	}
 	return tasks;
 }
@@ -264,7 +264,7 @@ function render(response, code, template, data, info, port, grunt) {
 	var json = JSON.stringify({
 		statusCode : code,
 		text: info,
-		link: "http://localhost/" + port,
+		link: "http://localhost:" + port +"/",
 		tasklist: displayTasks(grunt)
 	})
 	if (!response.headersSent) {
