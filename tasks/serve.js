@@ -281,16 +281,10 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 function render(response, code, template, data, info, port, grunt) {
 	if(code == 200){
 		var json = JSON.stringify({
-			statusCode : code,
-			text: info,
-			link: "http://localhost:" + port +"/",
 			tasklist: displayTasks(grunt)
 		})
 	}else{
 		var json = JSON.stringify({
-			statusCode : code,
-			text: info,
-			link: "http://localhost:" + port +"/",
 		})
 	}
 	if (!response.headersSent) {
