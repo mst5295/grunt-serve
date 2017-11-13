@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 		app.use(function (req, res, next) {
 			
 				// Website you wish to allow to connect
-				res.setHeader('Access-Control-Allow-Origin', '*');
+				res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080/#/');
 			
 				// Request methods you wish to allow
 				res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -202,7 +202,7 @@ function handleRequest(request, response, grunt, options) {
 
 function displayTasks(grunt){
 	var tasks = grunt.task._tasks;
-	console.dir(tasks);
+	//console.dir(tasks);
 	for (var task in tasks) {
 
 		//console.dir(task);
