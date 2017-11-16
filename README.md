@@ -86,6 +86,7 @@ always be related to the grunt working directory).
 #### Basic Use - Running tasks with zero configuration
 
 In this example, `grunt serve` will start a web server at `http://localhost:9000/`. Any call to /task will trigger a build as described below.
+ * If you go to http://localhost:9000/task/html2js,concat it will execute the tasks 'html2js' and 'concat' and return the stdout and stderr that grunt outputed.
  * If you go to http://localhost:9000/task/concat it will execute the task 'concat' and return the stdout and stderr that grunt outputed.
 
 ```javascript
