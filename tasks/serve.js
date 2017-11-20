@@ -141,7 +141,6 @@ module.exports = function(grunt) {
 						var taskinfo = null;
 						if( req.headers.taskinfo) {
 							taskinfo = req.headers.taskinfo
-							console.log(taskinfo)
 						}
 						// run tasks
 						executeTasks(req, res, grunt, options, tasks, output, null, options.port, taskinfo);
