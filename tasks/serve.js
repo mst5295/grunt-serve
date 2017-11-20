@@ -86,7 +86,7 @@ module.exports = function(grunt) {
 				res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 			
 				// Request headers you wish to allow
-				res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,webtoken');
+				res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,webtoken,taskinfo');
 			
 				// Set to true if you need the website to include cookies in the requests sent
 				// to the API (e.g. in case you use sessions)
@@ -137,9 +137,14 @@ module.exports = function(grunt) {
 					} else{
 						var tasks = req.params.taskname.split(','),
 						output = null;
-					
+						
+						var taskinfo = null;
+						if( req.headers.taskinfo) {
+							taskinfo = req.headers.taskinfo
+							console.log(taskinfo)
+						}
 						// run tasks
-						executeTasks(req, res, grunt, options, tasks, output, null, options.port);
+						executeTasks(req, res, grunt, options, tasks, output, null, options.port, taskinfo);
 						return;
 					}
 				});
@@ -202,28 +207,15 @@ function handleRequest(request, response, grunt, options) {
 
 function displayTasks(grunt){
 	var tasks = grunt.task._tasks;
-	//console.dir(tasks);
-	for (var task in tasks) {
-
-		//console.dir(task);
-		/*if(grunt.config.getRaw(grunt.task._tasks[task].name)){
-			var config = grunt.config.getRaw(grunt.task._tasks[task].name);
-			var targets = [];
-			if (typeof config === 'object'){
-				targets = Object.keys(config);
-				console.dir(targets);
-				//console.dir(grunt.config.get(grunt.task._tasks[task].name));
-			}
-		}*/
-	}
 	return tasks;
 }
 
 /**
  * Runs Grunt to execute the given tasks.
  */
-function executeTasks(request, response, grunt, options, tasks, output, contentType, port) {
+function executeTasks(request, response, grunt, options, tasks, output, contentType, port, taskinfo) {
 	// execute tasks
+	console.log(JSON.stringify(taskinfo));
 	childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 		try {
 			// should we print the stdout?
