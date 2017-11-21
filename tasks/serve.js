@@ -214,7 +214,11 @@ function displayTasks(grunt){
  */
 function executeTasks(request, response, grunt, options, tasks, output, contentType, port, taskinfo) {
 	// execute tasks
-	console.log(JSON.stringify(taskinfo));
+	taskinfo = JSON.stringify(taskinfo)
+	console.log(taskinfo);
+	for(var key in taskinfo){
+		console.log(key)
+	}
 	childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 		try {
 			// should we print the stdout?
