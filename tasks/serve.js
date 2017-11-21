@@ -77,7 +77,6 @@ module.exports = function(grunt) {
 				path: process.cwd()
 			}
 		});
-		app.use(bodyParser.json());
 		app.use(function (req, res, next) {
 
 				// Website you wish to allow to connect
@@ -96,6 +95,7 @@ module.exports = function(grunt) {
 				// Pass to next layer of middleware
 				next();
 			});
+			app.use(bodyParser.json());
 
 		app.post ('/', function(req, res) {
 			try{
