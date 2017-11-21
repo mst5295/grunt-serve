@@ -16,7 +16,8 @@ var	childProcess = require("child_process"),
 	jwt = require('jsonwebtoken'),
 	express = require('express'),
 	app = express(),
-	server;
+	server,
+	bodyParser = require('body-parser');
 // requires
 
 // load all template files
@@ -76,8 +77,9 @@ module.exports = function(grunt) {
 				path: process.cwd()
 			}
 		});
+		app.use(bodyParser.json());
 		app.use(function (req, res, next) {
-			
+
 				// Website you wish to allow to connect
 				res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
 			

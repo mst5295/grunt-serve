@@ -44,6 +44,7 @@
     "build"
   ],
   "dependencies": {
+    "body-parser": "^1.18.2",
     "connect": "~2.13.0",
     "dot": "~1.0.2",
     "express": "^4.15.5",
