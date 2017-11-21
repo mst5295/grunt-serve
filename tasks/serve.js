@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 				next();
 			});
 
-		app.get ('/', function(req, res) {
+		app.post ('/', function(req, res) {
 			try{
 				var cert = fs.readFileSync(options.keypath);
 				var token = req.headers.webtoken;
@@ -124,7 +124,7 @@ module.exports = function(grunt) {
 			}
 		});
 
-		app.get ('/task/:taskname', function(req, res) {
+		app.post ('/task/:taskname', function(req, res) {
 			try {
 				var cert = fs.readFileSync(options.keypath);
 				var token = req.headers.webtoken;
