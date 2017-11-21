@@ -138,7 +138,7 @@ module.exports = function(grunt) {
 						output = null;
 						
 						var taskinfo = null;
-						if( req.headers.taskinfo) {
+						if( req.body) {
 							taskinfo = req.body
 							console.log(req.body)
 						}
