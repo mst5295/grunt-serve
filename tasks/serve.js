@@ -67,7 +67,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('serve', 'Starts a http server that can be called to run tasks.', function() {
 		// control when the task should end
 	    var done = this.async();
-	    
+		
+		console.log(grunt.options('port'));
 		// get options
 		var options = this.options({
 			port: 9000,
