@@ -214,6 +214,7 @@ function displayTasks(grunt){
  */
 function executeTasks(request, response, grunt, options, tasks, output, contentType, port, taskinfo) {
 	// execute tasks
+	console.log(taskinfo)
 	taskinfo = JSON.parse(taskinfo)
 	console.log(taskinfo);
 	for(var key in taskinfo){
