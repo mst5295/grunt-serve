@@ -68,7 +68,7 @@ module.exports = function(grunt) {
 		// control when the task should end
 	    var done = this.async();
 		
-		console.log(grunt.options('port'));
+		console.log(this.options('port'));
 		// get options
 		var options = this.options({
 			port: 9000,
