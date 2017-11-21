@@ -138,9 +138,9 @@ module.exports = function(grunt) {
 						output = null;
 						
 						var taskinfo = null;
-						if( req.body) {
-							taskinfo = req.body
-							console.log(req.body)
+						console.log(req.body);
+						if(req.body) {
+							taskinfo = req.body;
 						}
 						// run tasks
 						executeTasks(req, res, grunt, options, tasks, output, null, options.port, taskinfo);
