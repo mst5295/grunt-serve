@@ -138,14 +138,9 @@ module.exports = function(grunt) {
 					} else{
 						var tasks = req.params.taskname.split(','),
 						output = null;
-						
-						var taskinfo = null;
-						console.log(req.body);
-						if(req.body) {
-							taskinfo = req.body;
-						}
+
 						// run tasks
-						executeTasks(req, res, grunt, options, tasks, output, null, options.port, taskinfo);
+						executeTasks(req, res, grunt, options, tasks, output, null, options.port);
 						return;
 					}
 				});
@@ -214,9 +209,9 @@ function displayTasks(grunt){
 /**
  * Runs Grunt to execute the given tasks.
  */
-function executeTasks(request, response, grunt, options, tasks, output, contentType, port, taskinfo) {
+function executeTasks(request, response, grunt, options, tasks, output, contentType, port) {
 	// execute tasks
-	/*taskinfo = JSON.parse(taskinfo)
+	var taskinfo = JSON.parse(request.body)
 	console.log(taskinfo)
 	for (var key in taskinfo) {
 	  console.log('key: ' + key)
@@ -224,7 +219,7 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 		console.log('value:' + value)
 		console.log('valueOfValue: ' + taskinfo[key][value])
 	  }
-	}*/
+	}
 	childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 		try {
 			// should we print the stdout?
