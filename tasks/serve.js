@@ -138,6 +138,7 @@ module.exports = function(grunt) {
 						output = null;
 						
 						var taskinfo = null;
+						console.log(req)
 						console.log(req.body);
 						if(req.body) {
 							taskinfo = req.body;
@@ -214,7 +215,7 @@ function displayTasks(grunt){
  */
 function executeTasks(request, response, grunt, options, tasks, output, contentType, port, taskinfo) {
 	// execute tasks
-	taskinfo = JSON.parse(taskinfo)
+	/*taskinfo = JSON.parse(taskinfo)
 	console.log(taskinfo)
 	for (var key in taskinfo) {
 	  console.log('key: ' + key)
@@ -222,7 +223,7 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 		console.log('value:' + value)
 		console.log('valueOfValue: ' + taskinfo[key][value])
 	  }
-	}
+	}*/
 	childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 		try {
 			// should we print the stdout?
