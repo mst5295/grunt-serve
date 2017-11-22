@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 			}
 		});
 		if(grunt.option('port')){
-			console.log(grunt.option('port'))
+			options.port = grunt.option('port')
 		}
 		app.use(function (req, res, next) {
 
