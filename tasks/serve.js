@@ -228,10 +228,13 @@ function displayTasks(grunt){
 function executeTasks(request, response, grunt, options, tasks, output, contentType, port) {
 	// execute tasks
 	var taskinfo = request.body
-	for (var key in taskinfo) {
-	  	for (var value in taskinfo[key]) {
-			console.log(key)
-			console.log(taskinfo[key][value])
+	for (var taskname in taskinfo) {
+	  	for (var subItem in taskinfo[taskname]) {
+			for (var subItemKey in taskinfo[taskname][subItem])
+			console.log(taskname)
+			console.log(taskinfo[taskname][subItem])
+			console.log(subItemKey)
+			console.log(taskinfo[taskname][subItem][subItemKey])
 		}
 		childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 			try {
