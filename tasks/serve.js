@@ -231,61 +231,60 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 	for (var taskname in taskinfo) {
 	  	for (var subItem in taskinfo[taskname]) {
 			for (var subItemKey in taskinfo[taskname][subItem])
-			console.log(taskname)
-			console.log(taskinfo[taskname][subItem])
 			console.log(subItemKey)
 			console.log(taskinfo[taskname][subItem][subItemKey])
 		}
-		childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
-			try {
-				// should we print the stdout?
-				if (!options.silently) {
-					// print stdout
-					console.log(stdout);
-					
-					// print stderr (if any)
-					if (stderr) {
-						console.log(stderr);
+		if(taskname == tasks.join(' ')) {
+			childProcess.exec('grunt '+taskname, function(error, stdout, stderr) {
+				try {
+					// should we print the stdout?
+					if (!options.silently) {
+						// print stdout
+						console.log(stdout);
+						
+						// print stderr (if any)
+						if (stderr) {
+							console.log(stderr);
+						}
 					}
-				}
-				
-				// any error? write logs and return
-				if (stderr || error) {
-					render(response, 500, gruntErrorTmpl, {
-						tasks: tasks,
-						stdout: formatStdout(stdout),
-						stderr: formatStdout(stderr)
-					}, {info: 'Error'}, port, grunt);
-					return;
-				}
-				
-				// the the output stdout?
-				if (output == 'stdout' || !output) {
-					// write stdout
-					render(response, 200, successTmpl, {
-						output: formatStdout(stdout)
-					}, {info: 'OK'}, port, grunt);
 					
-				} else {
-					// requested output file exists?
-					if (grunt.file.exists(output)) {
-						// write file
-						write(response, 200, grunt, output, contentType);
+					// any error? write logs and return
+					if (stderr || error) {
+						render(response, 500, gruntErrorTmpl, {
+							tasks: tasks,
+							stdout: formatStdout(stdout),
+							stderr: formatStdout(stderr)
+						}, {info: 'Error'}, port, grunt);
+						return;
+					}
+					
+					// the the output stdout?
+					if (output == 'stdout' || !output) {
+						// write stdout
+						render(response, 200, successTmpl, {
+							output: formatStdout(stdout)
+						}, {info: 'OK'}, port, grunt);
+						
 					} else {
-						// show file not found
-						render(response, 500, missingTmpl, {
-							output: output
-						} , {info: 'Error'}, port, grunt);
+						// requested output file exists?
+						if (grunt.file.exists(output)) {
+							// write file
+							write(response, 200, grunt, output, contentType);
+						} else {
+							// show file not found
+							render(response, 500, missingTmpl, {
+								output: output
+							} , {info: 'Error'}, port, grunt);
+						}
 					}
+				} catch(e) {
+					// show error
+					render(response, 500, errorTmpl, {
+						error: 'Unexpected JavaScript exception "'+e+'"<br />'+(e && e.stack ? e.stack.replace(/\n+/g, '<br />') : '')
+					}, {info: 'Error'}, port, grunt);
 				}
-			} catch(e) {
-				// show error
-				render(response, 500, errorTmpl, {
-					error: 'Unexpected JavaScript exception "'+e+'"<br />'+(e && e.stack ? e.stack.replace(/\n+/g, '<br />') : '')
-				}, {info: 'Error'}, port, grunt);
-			}
-		});
-		
+			});
+		}		
 	}
 }
 
