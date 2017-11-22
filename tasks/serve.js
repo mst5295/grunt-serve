@@ -230,9 +230,10 @@ function executeTasks(request, response, grunt, options, tasks, output, contentT
 	var taskinfo = request.body
 	for (var key in taskinfo) {
 	  for (var value in taskinfo[key]) {
+		  console.log(taskinfo[key])
+		  console.log(taskinfo[key][value])
 	  }
 	}
-	console.log(tasks.join(' '))
 	childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 		try {
 			// should we print the stdout?
