@@ -77,6 +77,9 @@ module.exports = function(grunt) {
 				path: process.cwd()
 			}
 		});
+		if(grunt.option('port')){
+			console.log(grunt.option('port'))
+		}
 		app.use(function (req, res, next) {
 
 				// Website you wish to allow to connect
