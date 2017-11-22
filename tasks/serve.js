@@ -48,6 +48,13 @@ module.exports = function(grunt) {
 			localrepo: './',
 			linkrepo: 'defaultLink'
 		})
+		if(grunt.option('localrepo')){
+			options.localrepo = grunt.option('localrepo')
+		}
+		if(grunt.option('linkrepo')){
+			option.linkrepo = grunt.option('linkrepo')
+		}
+
 		if(options.linkrepo == ''){
 			grunt.log.write('no link');
 		} else{
@@ -79,6 +86,12 @@ module.exports = function(grunt) {
 		});
 		if(grunt.option('port')){
 			options.port = grunt.option('port')
+		}
+		if(grunt.option('keypath')){
+			option.keypath = grunt.option('keypath')
+		}
+		if(grunt.option('silently')) {
+			option.silently = grunt.option('silently')
 		}
 		app.use(function (req, res, next) {
 
@@ -215,14 +228,11 @@ function displayTasks(grunt){
 function executeTasks(request, response, grunt, options, tasks, output, contentType, port) {
 	// execute tasks
 	var taskinfo = request.body
-	console.log(taskinfo)
 	for (var key in taskinfo) {
-	  console.log('key: ' + key)
 	  for (var value in taskinfo[key]) {
-		console.log('value:' + value)
-		console.log('valueOfValue: ' + taskinfo[key][value])
 	  }
 	}
+	console.log(tasks.join(' '))
 	childProcess.exec('grunt '+tasks.join(' '), function(error, stdout, stderr) {
 		try {
 			// should we print the stdout?
