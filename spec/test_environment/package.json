@@ -9,6 +9,6 @@
   "author": "MST",
   "license": "ISC",
   "devDependencies": {
-    "grunt-serve": "git+https://github.com/mst5295/grunt-serve.git"
+    "grunt-serve": "file:../.."
   }
 }
